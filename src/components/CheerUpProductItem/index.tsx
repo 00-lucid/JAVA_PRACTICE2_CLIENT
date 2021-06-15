@@ -1,0 +1,1 @@
+export { CheerUpProductItem } from './CheerUpProductItem';
