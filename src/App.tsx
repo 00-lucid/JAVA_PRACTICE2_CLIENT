@@ -1,3 +1,4 @@
+import { TopMenu } from './components/TopMenu';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './GlobalStyle';
@@ -11,9 +12,12 @@ export const App: React.FC = () => {
       <GlobalStyle />
       <CheerUpPage bells={bells} setBell={setBell} />
       <ContainerBell>{bells.map(bell => bell.text && <Bell key={bell.text}>{bell.text}</Bell>)}</ContainerBell>
+      <TopMenu/>
     </>
   );
 };
+
+
 
 const ContainerBell = styled.div`
   display: flex;

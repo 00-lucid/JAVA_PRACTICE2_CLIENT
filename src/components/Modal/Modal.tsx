@@ -23,6 +23,15 @@ export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, s
   const [isSeat, setIsSeat] = useState(false);
   const [numSeat, setNumSeat] = useState(0);
 
+  const [arrSeated, setArrSeated] = useState([]);
+
+  const getMovieSeat = async (movieName: string) => {
+    const { data } = await axios.get(`http://localhost:8080/reservation/seat?movieName=${movieName}`);
+    // data 특정 영화의 예약 번호가 담긴 배열이 되어야 한다.
+    console.log(data);
+    setArrSeated(data);
+  }
+
   const changeSeat = (idx: number) => {
     console.log(idx);
     setNumSeat(idx);
@@ -47,6 +56,8 @@ export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, s
 
   const openSeat = () => {
     setIsSeat(true);
+    // 어떤 좌석이 이미 예약되었는지, 서버에서 가져와야함 (Reservation)
+    getMovieSeat(modalProduct.movieName);
   };
 
   const submit = () => {
@@ -105,7 +116,7 @@ export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, s
         </Top>
         <Mid>
           {isSeat ? (
-            <SeatItemList changeSeat={changeSeat}></SeatItemList>
+            <SeatItemList changeSeat={changeSeat} arrSeated={arrSeated}></SeatItemList>
           ) : (
             <>
               <CoverImage>
@@ -223,7 +234,7 @@ const ContentModal = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
     height: 300px;
-    bottom: 0;
+    bottom: 0px;
     border-radius: 0.75rem 0.75rem 0 0;
     padding: 1.5rem;
     animation: ${slideIn} 0.2s forwards linear alternate;
