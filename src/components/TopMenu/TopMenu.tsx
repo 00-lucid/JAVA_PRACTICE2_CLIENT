@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 type Props = {
+  userInfo: any;
 };
 
-export const TopMenu: React.FC<Props> = () => {
+export const TopMenu: React.FC<Props> = ({ userInfo }) => {
 
   const destroyToken = () => {
     localStorage.removeItem('accessToken');
@@ -30,9 +31,9 @@ export const TopMenu: React.FC<Props> = () => {
   return (
       <Container>
         <Text style={{position: "absolute", left: 0, marginLeft: "20px"}} onClick={() => location.replace('/')}>MOVIESTATES</Text>
-        <Text style={{position: "absolute", left: 0, marginLeft: "140px"}} onClick={() => location.replace('/')}>안녕하세요 OOO님!</Text>
           {localStorage.getItem('accessToken') ? 
           <>
+          <Text style={{position: "absolute", left: 0, marginLeft: "140px"}} onClick={() => location.replace('/')}>안녕하세요 {userInfo?.userName}님!</Text>
           <Text onClick={destroyToken}>로그아웃</Text>
           <Link to="/config">
             <Text>회원수정</Text>

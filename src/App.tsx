@@ -6,17 +6,34 @@ import { CheerUpPage } from './pages/CheerUpPage';
 import { BrowserRouter, Router, Route } from 'react-router-dom';
 import { AuthPage } from './pages/AuthPage';
 import { ConfigPage } from './pages/ConfigPage';
+import axios from 'axios';
 
 export const App: React.FC = () => {
   const [bells, setBell] = useState([{ text: undefined }]);
   const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+
+    if (localStorage.getItem('accessToken')) {
+      axios.get('http://localhost:8080/info', {
+        headers: {
+          authorization: localStorage.getItem('accessToken')
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        setUserInfo(res.data);
+      })
+    }
+      
+  }, [])
 
   return (
     <>
     <BrowserRouter>
       <GlobalStyle />
       <ContainerBell>{bells.map(bell => bell.text && <Bell key={bell.text}>{bell.text}</Bell>)}</ContainerBell>
-      <TopMenu/>
+      <TopMenu userInfo={userInfo}/>
     <Route path="/" exact>
       <CheerUpPage bells={bells} setBell={setBell} />
     </Route>

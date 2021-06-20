@@ -114,6 +114,7 @@ const Button = styled.button`
   letter-spacing: -0.2px;
   height: 40px;
   padding: 0px 16px;
+  cursor: pointer;
 
   // &:hover {
   //   background-color: rgba(255, 255, 255, 0.7);

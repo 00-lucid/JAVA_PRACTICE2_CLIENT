@@ -11,14 +11,15 @@ export const ConfigPage: React.FC<Props> = () => {
 
   const submit = async () => {
     const { data } = await axios.patch('http://localhost:8080/update', {
-      newName: newName
+      userName: newName
     }, {
       headers: {
-        authorization: localStorage.getItem('accessToken')
+        authorization: localStorage.getItem('accessToken'),
+        'Content-Type': 'application/json'
       }
     })
 
-    console.log(data);
+    location.replace('/');
   }
 
   return (
@@ -70,6 +71,7 @@ const Button = styled.button`
   letter-spacing: -0.2px;
   height: 40px;
   padding: 0px 16px;
+  cursor: pointer;
 
   // &:hover {
   //   background-color: rgba(255, 255, 255, 0.7);
