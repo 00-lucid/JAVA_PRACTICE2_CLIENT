@@ -3,16 +3,30 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { GlobalStyle } from './GlobalStyle';
 import { CheerUpPage } from './pages/CheerUpPage';
+import { BrowserRouter, Router, Route } from 'react-router-dom';
+import { AuthPage } from './pages/AuthPage';
+import { ConfigPage } from './pages/ConfigPage';
 
 export const App: React.FC = () => {
   const [bells, setBell] = useState([{ text: undefined }]);
+  const [userInfo, setUserInfo] = useState(null);
 
   return (
     <>
+    <BrowserRouter>
       <GlobalStyle />
-      <CheerUpPage bells={bells} setBell={setBell} />
       <ContainerBell>{bells.map(bell => bell.text && <Bell key={bell.text}>{bell.text}</Bell>)}</ContainerBell>
       <TopMenu/>
+    <Route path="/" exact>
+      <CheerUpPage bells={bells} setBell={setBell} />
+    </Route>
+    <Route path="/auth" exact>
+      <AuthPage setUserInfo={setUserInfo}/>
+    </Route>
+    <Route path="/config" exact>
+      <ConfigPage/>
+    </Route>
+    </BrowserRouter>
     </>
   );
 };
