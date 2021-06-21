@@ -13,7 +13,7 @@ type Props = {
   setModalProduct: Function;
 };
 
-export const CheerUpProductItem: React.FC<Props> = ({ product, setModalProduct }) => {
+export const MovieProductItem: React.FC<Props> = ({ product, setModalProduct }) => {
   const openModal = () => {
     const body = document.querySelector('body');
     body?.classList.add('scroll-stop');

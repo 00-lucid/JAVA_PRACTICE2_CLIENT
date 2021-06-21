@@ -1,2 +1,2 @@
-export { CheerUpProductList } from './CheerUpProductList';
+export { MovieProductList } from "./MovieProductList";
 // TEST

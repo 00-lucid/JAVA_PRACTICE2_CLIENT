@@ -9,13 +9,14 @@ type Props = {
 export const ConfigPage: React.FC<Props> = () => {
   const [newName, setNewName] = useState('');
 
-  const submit = async () => {
+  const submit = async () => {``
+    console.log(newName);
+    
     const { data } = await axios.patch('http://localhost:8080/update', {
       userName: newName
     }, {
       headers: {
         authorization: localStorage.getItem('accessToken'),
-        'Content-Type': 'application/json'
       }
     })
 

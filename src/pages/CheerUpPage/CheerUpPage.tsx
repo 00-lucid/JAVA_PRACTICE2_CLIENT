@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { CheerUpProductList } from '../../components';
+import { MovieProductList } from '../../components';
 import { Modal } from '../../components';
 
 type Props = {
@@ -25,7 +25,7 @@ export const CheerUpPage: React.FC<Props> = ({ bells, setBell, userInfo }) => {
 
   return (
     <>
-      <CheerUpProductList setModalProduct={setModalProduct} product={product} />
+      <MovieProductList setModalProduct={setModalProduct} product={product} />
       {modalProduct.moviePhoto && (
         <Modal modalProduct={modalProduct} setModalProduct={setModalProduct} bells={bells} setBell={setBell} userInfo={userInfo}/>
       )}

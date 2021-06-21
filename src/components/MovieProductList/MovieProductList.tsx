@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ProductList } from '../ProductList';
-import { CheerUpProductItem } from '../MovieProductItem';
+import { MovieProductItem } from '../MovieProductItem';
 type Product = {
   moviePhoto: string;
   movieName: string;
@@ -13,12 +13,12 @@ type Props = {
   product: Product[];
 };
 
-export const CheerUpProductList: React.FC<Props> = ({ setModalProduct, product }) => {
+export const MovieProductList: React.FC<Props> = ({ setModalProduct, product }) => {
   return (
     <Container>
       <ProductList>
         {product.map((item, idx) => (
-          <CheerUpProductItem key={idx} product={item} setModalProduct={setModalProduct} />
+          <MovieProductItem key={idx} product={item} setModalProduct={setModalProduct} />
         ))}
       </ProductList>
     </Container>

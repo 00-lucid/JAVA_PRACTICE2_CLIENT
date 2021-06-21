@@ -1,1 +1,1 @@
-export { CheerUpProductItem } from './CheerUpProductItem';
+export { MovieProductItem } from './MovieProductItem';
