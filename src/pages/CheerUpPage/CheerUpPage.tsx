@@ -6,9 +6,10 @@ import { Modal } from '../../components';
 type Props = {
   bells: object[];
   setBell: Function;
+  userInfo: any;
 };
 
-export const CheerUpPage: React.FC<Props> = ({ bells, setBell }) => {
+export const CheerUpPage: React.FC<Props> = ({ bells, setBell, userInfo }) => {
   const [modalProduct, setModalProduct] = useState({ moviePhoto: '', movieName: '', movieGenre: '', movieInfo: '' });
   const [product, setProduct] = useState([]);
   useEffect(() => {
@@ -26,7 +27,7 @@ export const CheerUpPage: React.FC<Props> = ({ bells, setBell }) => {
     <>
       <CheerUpProductList setModalProduct={setModalProduct} product={product} />
       {modalProduct.moviePhoto && (
-        <Modal modalProduct={modalProduct} setModalProduct={setModalProduct} bells={bells} setBell={setBell} />
+        <Modal modalProduct={modalProduct} setModalProduct={setModalProduct} bells={bells} setBell={setBell} userInfo={userInfo}/>
       )}
     </>
   );

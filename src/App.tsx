@@ -7,6 +7,7 @@ import { BrowserRouter, Router, Route } from 'react-router-dom';
 import { AuthPage } from './pages/AuthPage';
 import { ConfigPage } from './pages/ConfigPage';
 import axios from 'axios';
+import { AdminPage } from './pages/AdminPage';
 
 export const App: React.FC = () => {
   const [bells, setBell] = useState([{ text: undefined }]);
@@ -35,13 +36,16 @@ export const App: React.FC = () => {
       <ContainerBell>{bells.map(bell => bell.text && <Bell key={bell.text}>{bell.text}</Bell>)}</ContainerBell>
       <TopMenu userInfo={userInfo}/>
     <Route path="/" exact>
-      <CheerUpPage bells={bells} setBell={setBell} />
+      <CheerUpPage bells={bells} setBell={setBell} userInfo={userInfo}/>
     </Route>
     <Route path="/auth" exact>
       <AuthPage setUserInfo={setUserInfo}/>
     </Route>
     <Route path="/config" exact>
       <ConfigPage/>
+    </Route>
+    <Route path="/admin" exact>
+      <AdminPage/>
     </Route>
     </BrowserRouter>
     </>
@@ -52,6 +56,7 @@ export const App: React.FC = () => {
 
 const ContainerBell = styled.div`
   display: flex;
+  z-index: 1;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -62,7 +67,7 @@ const ContainerBell = styled.div`
 `;
 
 const Bell = styled.div`
-  margin-top: 5px;
+  margin-top: 80px;
   display: flex;
   position: relative;
   background: #04dd51;

@@ -15,9 +15,10 @@ type Props = {
   setModalProduct: Function;
   bells: object[];
   setBell: Function;
+  userInfo: any;
 };
 
-export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, setBell }) => {
+export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, setBell, userInfo }) => {
   const modalElement = useRef<HTMLInputElement>(null);
 
   const [isSeat, setIsSeat] = useState(false);
@@ -61,30 +62,36 @@ export const Modal: React.FC<Props> = ({ modalProduct, setModalProduct, bells, s
   };
 
   const submit = () => {
-    if (modalProduct.movieName.length < 20) {
-      setBell([...bells, { text: `✓ [${modalProduct.movieName}] 예매 완료` }]);
-      setTimeout(() => {
-        setBell(bells.slice(1));
-      }, 2000);
+    if (numSeat && localStorage.getItem('accessToken')) {
+      if (modalProduct.movieName.length < 20) {
+        setBell([...bells, { text: `✓ [${modalProduct.movieName}] 예매 완료` }]);
+        setTimeout(() => {
+          setBell(bells.slice(1));
+        }, 2000);
+      } else {
+        setBell([...bells, { text: `✓ [${modalProduct.movieName.slice(0, 21) + '...'}] 예매 완료` }]);
+        setTimeout(() => {
+          setBell(bells.slice(1));
+        }, 2000);
+      }
+  
+      // post reservation
+      if (typeof numSeat === 'number') {
+        axios
+          .post('http://localhost:8080/reservation', {
+            userName: userInfo.userName,
+            movieName: modalProduct.movieName,
+            seat: numSeat,
+          })
+          .then(res => res.data)
+          .then(data => {
+            btnExit();
+            setNumSeat(0);
+          });
+      }
     } else {
-      setBell([...bells, { text: `✓ [${modalProduct.movieName.slice(0, 21) + '...'}] 예매 완료` }]);
-      setTimeout(() => {
-        setBell(bells.slice(1));
-      }, 2000);
-    }
-
-    // post reservation
-    if (typeof numSeat === 'number') {
-      axios
-        .post('http://localhost:8080/reservation', {
-          userName: 'root',
-          movieName: modalProduct.movieName,
-          seat: numSeat,
-        })
-        .then(res => res.data)
-        .then(data => {
-          btnExit();
-        });
+      alert('잘못된 접근');
+      btnExit();
     }
   };
 
