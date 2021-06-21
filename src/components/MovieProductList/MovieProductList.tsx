@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ProductList } from '../ProductList';
-import { CheerUpProductItem } from '../CheerUpProductItem';
-import { useCheerUpProductList } from './useCheerUpProductList';
+import { CheerUpProductItem } from '../MovieProductItem';
 type Product = {
   moviePhoto: string;
   movieName: string;
